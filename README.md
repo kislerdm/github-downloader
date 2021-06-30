@@ -10,6 +10,8 @@
 
 - python3 (to run [the installation script](./install.py))
 
+- [cURL](https://curl.se/) (to download the installation script)
+
 ### Instructions
 
 Download and execute [the installation script](./install.py).
@@ -17,7 +19,7 @@ Download and execute [the installation script](./install.py).
 You can run the commands to install *the latest app version*:
 
 ```bash
-curl -S https://github.com/kislerdm/github-downloader/install.py
+curl -So install.py https://raw.githubusercontent.com/kislerdm/github-downloader/master/install.py
 chmod +x install.py
 ./install.py
 ```
