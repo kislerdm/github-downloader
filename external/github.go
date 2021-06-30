@@ -3,6 +3,7 @@ package external
 import (
 	"context"
 	"fmt"
+	"log"
 	"path"
 	"strings"
 
@@ -25,9 +26,14 @@ type Client struct {
 // repoName: github repo name
 // branch: repo branch
 func New(token, owner, repoName, branch string) *Client {
-	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
+	c := github.NewClient(nil)
+	if token != "" {
+		ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
+		c = github.NewClient(oauth2.NewClient(ctx, ts))
+
+	}
 	return &Client{
-		Client: github.NewClient(oauth2.NewClient(ctx, ts)),
+		Client: c,
 		Owner:  owner,
 		Name:   repoName,
 		Branch: branch,
@@ -55,7 +61,7 @@ func (c *Client) getTreeSHAByCommitSHA(sha string) (tree *github.Tree, err error
 }
 
 // DownloadAll downloads all blobs by its path/prefix, or tree
-func (c *Client) DownloadAll(pathDownload, prefixOutput string) (errs []error) {
+func (c *Client) DownloadAll(pathDownload, prefixOutput string, verbose bool) (errs Errors) {
 	commitSHA := c.getSHALastCommit(c.Branch)
 	if commitSHA == "" {
 		return []error{fmt.Errorf("commits for branch '%s' not found", c.Branch)}
@@ -73,6 +79,9 @@ func (c *Client) DownloadAll(pathDownload, prefixOutput string) (errs []error) {
 				if strings.HasPrefix(p, pathDownload) {
 					if err := c.Download(p, prefixOutput); err != nil {
 						ch <- err
+					}
+					if verbose {
+						log.Printf("Download [%v bytes] %s", entry.GetSize(), p)
 					}
 				}
 			}
