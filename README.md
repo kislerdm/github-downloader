@@ -4,22 +4,36 @@
 
 *The repo contains the codebase of the CLI tool* to download part of the codebase: either a file/blob, or directory/tree from a github repository.
 
-## How to use
+## Installation
 
-### Note
+### Requirements
 
-- [cURL](https://curl.se/) is required to be install in your OS
+- [cURL](https://curl.se/)
 
-- The tool was not tested in windows
+- [tar](https://man7.org/linux/man-pages/man1/tar.1.html)
 
-### Steps
+### Instructions
 
-1. Install the app by downloading the binary and copying it to `/usr/local/bin`:
+Download and execute [the installation script](./install.sh).
+
+You can run the commands to install *the latest app version* by running the command:
 
 ```bash
-todo
+curl -S https://github.com/kislerdm/github-downloader/install.sh
+chmod +x install.sh
+./install.sh
+exec -l ${SHELL}
 ```
-2.
+
+**Note** you can install different version of the app by running the command:
+
+```bash
+./install.sh <<VERSION>>
+```
+
+## How to use
+
+**Note** The tool was not tested in windows.
 
 - Run to see the help:
 
