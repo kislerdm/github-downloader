@@ -39,7 +39,6 @@ jobs:
         goarch: ${{ matrix.goarch }}
         goversion: '1.16'
         executable_compression: upx -9 --ultra-brute
-        build_flags: -a -gcflags=all="-l -B -C"
         ldflags: "-w -s"
         overwrite: true
         asset_name: github-downloader-${{ matrix.goos }}-${{ matrix.goarch }}-latest
