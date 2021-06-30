@@ -1,25 +1,27 @@
 # GitHub Simple Downloader
 
-It is often required to fetch few modules of the codebase from a bulky mono-repo. Unfortunately github doesn't permit for such operation directly. It provides an API endpoints to achieve that objective though.
+**Motivation**: It is often required to fetch a couple of codebase modules from bulky monorepo. Unfortunately standard [git client](https://git-scm.com/) doesn't permit for such operation directly. Github provides a set of API endpoints to achieve that objective though.
 
-*The repo contains the codebase of the CLI tool* to download part of the codebase, either a file/blob, or directory/tree from a github repository.
+*The repo contains the codebase of the CLI tool* to download part of the codebase: either a file/blob, or directory/tree from a github repository.
 
 ## How to use
 
 ### Note
 
-[cURL](https://curl.se/) is required to be install in your OS.
+- [cURL](https://curl.se/) is required to be install in your OS
+
+- The tool was not tested in windows
 
 ### Steps
 
-1. Download the binary and copy it to `/usr/bin/` or `/usr/local/bin`:
+1. Install the app by downloading the binary and copying it to `/usr/local/bin`:
 
 ```bash
 todo
 ```
 2.
 
-- Run to see the man/help:
+- Run to see the help:
 
 ```bash
 github-downloader -h
@@ -64,3 +66,17 @@ github-downloader -token=xxxxxx https://github.com/kislerdm/github-downloader/bl
 ### Note
 
 The *cmd option token* is prioritized above the environmental variable. In the other words, if you export token as an envvar and provide another token as the cmd option `token`, the later value will be used to authenticate with the github API.
+
+## Collaboration
+
+If you find this tool useful but missing some features, please open a github issue, or submit a PR with modifications.
+
+### Note
+
+The codebase is distributed under [the MIT copyright license](./LICENSE).
+
+## Author
+
+[Dmitry Kisler](https://www.dkisler.com)
+
+Feel free to get in touch [here](https://www.linkedin.com/in/dkisler/) to chat over tech stuff :)
