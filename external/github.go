@@ -12,20 +12,6 @@ import (
 
 var ctx = context.Background()
 
-type err struct {
-	Status string
-}
-
-func (e *err) Error() string {
-	return e.Status
-}
-
-func newError(status string) *err {
-	return &err{
-		Status: status,
-	}
-}
-
 type Client struct {
 	Client *github.Client
 	Owner  string
@@ -65,9 +51,6 @@ func (c *Client) getTreeSHAByCommitSHA(sha string) (tree *github.Tree, err error
 	}
 	shaTree := commit.GetTree().GetSHA()
 	tree, _, err = c.Client.Git.GetTree(ctx, c.Owner, c.Name, shaTree, true)
-	if err != nil {
-		return
-	}
 	return
 }
 
@@ -112,7 +95,7 @@ func (c *Client) Download(pathDownload, prefixOutput string) error {
 		return err
 	}
 	if resp.StatusCode != 200 {
-		return newError(resp.Status)
+		return fmt.Errorf(resp.Status)
 	}
 	pathOut := path.Join(prefixOutput, pathDownload)
 	if err := Write(resp.Body, pathOut); err != nil {
