@@ -34,7 +34,7 @@ jobs:
           ldflags: "-w -s"
           overwrite: true
           binary_name: github-downloader
-          extra_files: LICENSE README.md
+          extra_files: LICENSE README.md install.sh
   arm:
     name: Release - ARM
     runs-on: ubuntu-20.04
@@ -65,4 +65,4 @@ jobs:
           ldflags: "-w -s"
           overwrite: true
           binary_name: github-downloader
-          extra_files: LICENSE README.md
+          extra_files: LICENSE README.md install.sh
