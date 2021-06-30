@@ -40,10 +40,10 @@ func New(token, owner, repoName, branch string) *Client {
 	}
 }
 
-func (c *Client) getSHALastCommit(branch string) string {
+func (c *Client) getSHALastCommit() string {
 	refList, _, _ := c.Client.Git.ListMatchingRefs(ctx, c.Owner, c.Name, nil)
 	for _, ref := range refList {
-		if strings.HasSuffix(ref.GetRef(), branch) {
+		if strings.HasSuffix(ref.GetRef(), c.Branch) {
 			return ref.GetObject().GetSHA()
 		}
 	}
@@ -62,7 +62,7 @@ func (c *Client) getTreeSHAByCommitSHA(sha string) (tree *github.Tree, err error
 
 // DownloadAll downloads all blobs by its path/prefix, or tree
 func (c *Client) DownloadAll(pathDownload, prefixOutput string, verbose bool) (errs Errors) {
-	commitSHA := c.getSHALastCommit(c.Branch)
+	commitSHA := c.getSHALastCommit()
 	if commitSHA == "" {
 		return Errors{fmt.Errorf("commits for branch '%s' not found", c.Branch)}
 	}
