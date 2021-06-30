@@ -9,6 +9,8 @@ import (
 
 func main() {
 	if err := cli.Run(os.Args); err != nil {
-		log.Fatalln(err)
+		if err.Error() != "" {
+			log.Fatalln(err)
+		}
 	}
 }

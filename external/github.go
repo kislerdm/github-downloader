@@ -64,12 +64,12 @@ func (c *Client) getTreeSHAByCommitSHA(sha string) (tree *github.Tree, err error
 func (c *Client) DownloadAll(pathDownload, prefixOutput string, verbose bool) (errs Errors) {
 	commitSHA := c.getSHALastCommit(c.Branch)
 	if commitSHA == "" {
-		return []error{fmt.Errorf("commits for branch '%s' not found", c.Branch)}
+		return Errors{fmt.Errorf("commits for branch '%s' not found", c.Branch)}
 	}
 
 	tree, err := c.getTreeSHAByCommitSHA(commitSHA)
 	if err != nil {
-		return []error{err}
+		return Errors{err}
 	}
 
 	var routine func(chan error) = func(ch chan error) {
