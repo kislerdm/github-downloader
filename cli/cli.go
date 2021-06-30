@@ -14,7 +14,7 @@ import (
 var version string
 
 const (
-	appName  = "github-download"
+	appName  = "github-downloader"
 	template = `{{.Name}} - the app to download a blob/file, or tree/directory from github repo.
 
 USAGE: {{.Name}} [options] https://github.com/OWNER/REPO/tree/BRANCH/PATH_TO_DOWNLOAD
