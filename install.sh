@@ -16,18 +16,32 @@ if [ ! -d ${DIR} ]; then mkdir -p ${DIR}; fi
 
 echo "Downloading the app, version: ${VERSION}"
 
-curl -SLo ${DIR}/${APP}.tar.gz "https://github.com/kislerdm/${APP}/releases/download/${VERSION}/${APP}-${VERSION}-$(uname)-$(uname -m).tar.gz"
+echo "https://github.com/kislerdm/${APP}/releases/download/${VERSION}/${APP}-${VERSION}-$(uname)-$(uname -m).tar.gz"
+
+curl -SLo ${DIR}/${APP}-${VERSION}.tar.gz "https://github.com/kislerdm/${APP}/releases/download/${VERSION}/${APP}-${VERSION}-$(uname)-$(uname -m).tar.gz"
 
 echo "Extracting the app"
 
 cd ${DIR}
-tar -vxf ${APP}.tar.gz
+tar -vxf ${APP}-${VERSION}.tar.gz
 if [ $? -eq 1 ]; then
     echo "The app archive is corrupt, it's likely that the specified version (${VERSION}) does not exist"
     exit 1
 fi
-rm ${APP}.tar.gz
 
 echo "Linking the app to /usr/local/bin"
 
-sudo ln -s ${DIR}/${APP} /usr/local/bin/${APP}
+if [ $(ls /usr/local/bin/github-downloader | wc -l) -gt 0 ]; then
+    read  -n 1 -p "The file is linked, would you like to overwrite? [Y/n] " answer
+    if [[ ${answer} == "Y" || ${answer} == "y" ]]; then
+        sudo rm /usr/local/bin/${APP}
+    else
+        echo
+        echo "Bye!"
+        exit 0
+    fi
+fi
+
+sudo ln -sf ${DIR}/${APP} /usr/local/bin/${APP}
+
+exec -l ${SHELL}

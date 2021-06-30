@@ -16,13 +16,12 @@
 
 Download and execute [the installation script](./install.sh).
 
-You can run the commands to install *the latest app version* by running the command:
+You can run the commands to install *the latest app version*:
 
 ```bash
 curl -S https://github.com/kislerdm/github-downloader/install.sh
 chmod +x install.sh
 ./install.sh
-exec -l ${SHELL}
 ```
 
 **Note** you can install different version of the app by running the command:
