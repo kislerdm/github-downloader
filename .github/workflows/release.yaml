@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  releases-matrix:
+    name: Release
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        goos:
+          - 'linux'
+          - 'darwin'
+          - 'windows'
+        goarch:
+          - '386'
+          - 'amd64'
+          - 'arm'
+          - 'arm64'
+        exclude:
+          - goos: 'darwin'
+            goarch: '386'
+          - goos: 'darwin'
+            goarch: 'arm'
+          - goos: linux
+            goarch: arm
+          - goos: 'windows'
+            goarch: 'arm64'
+    steps:
+    - uses: actions/checkout@v2
+    - uses: wangyoucao577/go-release-action@v1.18
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        goos: ${{ matrix.goos }}
+        goarch: ${{ matrix.goarch }}
+        goversion: '1.16'
+        binary_name: github-downloader
+        executable_compression: upx -9 --ultra-brute
+        build_flags: '-a -gcflags=all="-l -B -C"'
+        ldflags: '-w -s'
+        overwrite: true
+        asset_name: ${{ BINARY_NAME }}-${{ matrix.goos }}-${{ matrix.goarch }}-latest
+        extra_files: LICENSE README.md
