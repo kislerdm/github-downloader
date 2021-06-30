@@ -8,26 +8,24 @@
 
 ### Requirements
 
-- [cURL](https://curl.se/)
-
-- [tar](https://man7.org/linux/man-pages/man1/tar.1.html)
+- python3 (to run [the installation script](./install.py))
 
 ### Instructions
 
-Download and execute [the installation script](./install.sh).
+Download and execute [the installation script](./install.py).
 
 You can run the commands to install *the latest app version*:
 
 ```bash
-curl -S https://github.com/kislerdm/github-downloader/install.sh
-chmod +x install.sh
-./install.sh
+curl -S https://github.com/kislerdm/github-downloader/install.py
+chmod +x install.py
+./install.py
 ```
 
 **Note** you can install different version of the app by running the command:
 
 ```bash
-./install.sh <<VERSION>>
+./install.py -version=<<VERSION>>
 ```
 
 ## How to use
