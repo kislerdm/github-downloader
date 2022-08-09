@@ -14,20 +14,10 @@
 
 ### Instructions
 
-Download and execute [the installation script](./install.sh).
-
-You can run the commands to install *the stable app version*:
+Run to install:
 
 ```bash
-curl -So install.sh https://raw.githubusercontent.com/kislerdm/github-downloader/master/install.sh
-chmod +x install.sh
-./install.sh
-```
-
-**Note** you can install different version of the app by running the command:
-
-```bash
-./install.sh <<VERSION>>
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/kislerdm/github-downloader/HEAD/install.sh)"
 ```
 
 ## How to use
